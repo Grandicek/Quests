@@ -4601,6 +4601,20 @@ public class BukkitQuester implements Quester {
         return false;
     }
 
+    public boolean canAcceptQuestMoreStage(final UUID npc) {
+        for (final Quest q : plugin.getLoadedQuests()) {
+            if (q.getNpcStart() != null && !getCompletedQuests().contains(q)) {
+                    final boolean ignoreLockedQuests = plugin.getConfigSettings().canIgnoreLockedQuests();
+                    if (!ignoreLockedQuests || q.testRequirements(this)) {
+						if (getCurrentStage(q).getNpcsToInteract().equals(npc)) {
+							return true;
+						}
+                    }
+              }
+        }
+        return false;
+    }
+
     /**
      * Checks whether an NPC can offer a quest that the player has already completed
      *
