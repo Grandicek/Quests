@@ -102,7 +102,7 @@ public class BukkitNpcEffectThread implements Runnable {
                 plugin.getServer().getPluginManager().callEvent(event);
             } else if (quester.StageQuestEffectsNPC(targetUuid)) {
 		showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
-                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getEffect(), false);
+                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, "AnimatedBallEffect", false);
                 plugin.getServer().getPluginManager().callEvent(event);
 		}
         }
