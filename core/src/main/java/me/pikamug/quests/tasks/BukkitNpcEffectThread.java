@@ -94,24 +94,17 @@ public class BukkitNpcEffectThread implements Runnable {
             final BukkitQuesterPostViewEffectEvent event;
             if (quester.canAcceptQuest(targetUuid)) {
                 showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
-
-                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation,
-                        plugin.getConfigSettings().getEffect(), false);
+                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getEffect(), false);
                 plugin.getServer().getPluginManager().callEvent(event);
             } else if (quester.canAcceptCompletedRedoableQuest(targetUuid)) {
                 showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getRedoEffect());
-
-                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation,
-                        plugin.getConfigSettings().getRedoEffect(), true);
+                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getRedoEffect(), true);
                 plugin.getServer().getPluginManager().callEvent(event);
             } else if (quester.StageQuestEffectsNPC(targetUuid)) {
-				showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
-		    getLogger().info("effect: " + plugin.getConfigSettings().getEffect());
-
-                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation,
-                        plugin.getConfigSettings().getEffect(), false);
+		showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
+                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getEffect(), false);
                 plugin.getServer().getPluginManager().callEvent(event);
-			}
+		}
         }
     }
 
