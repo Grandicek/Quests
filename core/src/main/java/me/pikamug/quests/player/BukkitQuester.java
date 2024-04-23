@@ -4601,18 +4601,16 @@ public class BukkitQuester implements Quester {
         return false;
     }
 
-    public boolean canAcceptQuestMoreStage(final UUID npc) {
+    public boolean canAcceptQuestMoreStage(final UUID npc) {			
         for (final Quest q : plugin.getLoadedQuests()) {
-            if (q.getNpcStart() != null && !getCompletedQuests().contains(q)) {
+            if (!getCompletedQuests().contains(q)) {
+                if (getCurrentStage(q).getNpcsToInteract().equals(npc)) {
                     final boolean ignoreLockedQuests = plugin.getConfigSettings().canIgnoreLockedQuests();
-                    Stage stage = getCurrentStage(q);
-                    //stage.getNpcsToInteract()
                     if (!ignoreLockedQuests || q.testRequirements(this)) {
-			if (stage.getNpcsToInteract().equals(npc)) {
-				return true;
-			}
+                        return true;
                     }
-              }
+                }
+            }
         }
         return false;
     }
