@@ -4588,8 +4588,8 @@ public class BukkitQuester implements Quester {
      * @return true if at least one available quest has not yet been completed
      */
     public boolean canAcceptQuest(final UUID npc) {
-        for (final Quest q : plugin.getLoadedQuests()) {
-            if (q.getNpcStart() != null && !getCompletedQuests().contains(q)) {
+        for (final Quest q : plugin.getLoadedQuests()) {                
+            if (q.getNpcStart() != null && !getCompletedQuests().contains(q) && !getCurrentQuests().containsKey(q)) {
                 if (q.getNpcStart().equals(npc)) {
                     final boolean ignoreLockedQuests = plugin.getConfigSettings().canIgnoreLockedQuests();
                     if (!ignoreLockedQuests || q.testRequirements(this)) {
