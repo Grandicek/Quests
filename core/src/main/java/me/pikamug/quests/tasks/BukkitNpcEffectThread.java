@@ -104,8 +104,9 @@ public class BukkitNpcEffectThread implements Runnable {
                 event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation,
                         plugin.getConfigSettings().getRedoEffect(), true);
                 plugin.getServer().getPluginManager().callEvent(event);
-            } else if (quester.canAcceptQuestMoreStage(targetUuid)) {
+            } else if (quester.StageQuestEffectsNPC(targetUuid)) {
 				showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
+		    getLogger().info("effect: " + plugin.getConfigSettings().getEffect());
 
                 event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation,
                         plugin.getConfigSettings().getEffect(), false);
