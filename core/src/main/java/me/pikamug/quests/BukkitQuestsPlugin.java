@@ -261,7 +261,8 @@ public class BukkitQuestsPlugin extends JavaPlugin implements Quests {
 
 	public void scheduleNpcEffects() {
 		BukkitNpcEffectThread effectThread = new BukkitNpcEffectThread(this);
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, effectThread, 0L, 300L);
+		int interval = getConfigSettings().getparticlestimer();
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, effectThread, 0L, interval);
 	}
 
     public boolean isProVersion() {
