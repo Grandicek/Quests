@@ -19,6 +19,7 @@ import me.pikamug.quests.player.BukkitQuester;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,6 +35,7 @@ public class BukkitNpcEffectThread implements Runnable {
 
 	@Override
     public void run() {
+        Bukkit.getLogger().info("TESTICEK");
         for (final Player player : plugin.getServer().getOnlinePlayers()) {
             if (plugin.getDependencies().getCitizens() != null) {
                 final List<Entity> nearby = player.getNearbyEntities(32.0, 16.0, 32.0);

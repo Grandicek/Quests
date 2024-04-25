@@ -145,7 +145,7 @@ public class BukkitQuestsPlugin extends JavaPlugin implements Quests {
         playerListener = new BukkitPlayerListener(this);
         uniteListener = new BukkitUniteListener();
         partiesListener = new BukkitPartiesListener();
-        effectThread = new BukkitNpcEffectThread(this);
+        //effectThread = new BukkitNpcEffectThread(this); vypnuto kvuli tomu, ze to spoustime v urcity cas...
         moveThread = new BukkitPlayerMoveThread(this);
         questFactory = new BukkitQuestFactory(this);
         actionFactory = new BukkitActionFactory(this);
@@ -259,9 +259,9 @@ public class BukkitQuestsPlugin extends JavaPlugin implements Quests {
         }
     }
 
-	//run npc effects
 	public void scheduleNpcEffects() {
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new BukkitNpcEffectThread(this), 0L, 100L); //100 ticku je 5 sec
+		BukkitNpcEffectThread effectThread = new BukkitNpcEffectThread(this);
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, effectThread, 0L, 300L);
 	}
 
     public boolean isProVersion() {

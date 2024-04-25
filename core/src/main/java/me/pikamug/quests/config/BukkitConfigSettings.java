@@ -40,6 +40,7 @@ public class BukkitConfigSettings implements ConfigSettings {
     private boolean npcEffects = true;
     private String effect = "note";
     private String redoEffect = "angry_villager";
+    private int particlestimer = 70;
     private boolean showCompletedObjs = true;
     private boolean showQuestReqs = true;
     private boolean showQuestTitles = true;
@@ -168,6 +169,12 @@ public class BukkitConfigSettings implements ConfigSettings {
     public void setEffect(final String effect) {
         this.effect = effect;
     }
+    public int getparticlestimer() {
+        return particlestimer;
+    }
+    public void setparticlestimer(final int particlestimer) {
+        this.particlestimer = particlestimer;
+    }
     public String getRedoEffect() {
         return redoEffect;
     }
@@ -264,6 +271,7 @@ public class BukkitConfigSettings implements ConfigSettings {
         npcEffects = config.getBoolean("npc-effects.enabled", true);
         effect = config.getString("npc-effects.new-quest", "note");
         redoEffect = config.getString("npc-effects.redo-quest", "angry_villager");
+        particlestimer = config.getInt("npc-effects.effect-repeat-timer-ticks", 70);
         showCompletedObjs = config.getBoolean("show-completed-objectives", true);
         showQuestReqs = config.getBoolean("show-requirements", true);
         showQuestTitles = config.getBoolean("show-titles", true);

@@ -51,6 +51,8 @@ public interface ConfigSettings {
     void setEffect(final String effect);
     String getRedoEffect();
     void setRedoEffect(final String redoEffect);
+    int getparticlestimer();
+    void setparticlestimer(final int particlestimer);
     boolean canShowCompletedObjs();
     void setShowCompletedObjs(final boolean showCompletedObjs);
     boolean canShowQuestReqs();
