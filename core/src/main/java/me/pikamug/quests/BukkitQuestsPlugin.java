@@ -241,6 +241,9 @@ public class BukkitQuestsPlugin extends JavaPlugin implements Quests {
 
         // 13 - Delay loading of quests, actions and modules
         delayLoadQuestInfo();
+        
+        //14 - particles effects, now we can edit how often in ticks :0
+        scheduleNpcEffects();
     }
 
     @Override
@@ -255,6 +258,11 @@ public class BukkitQuestsPlugin extends JavaPlugin implements Quests {
             storage.close();
         }
     }
+
+	//run npc effects
+	public void scheduleNpcEffects() {
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new BukkitNpcEffectThread(this), 0L, 100L); //100 ticku je 5 sec
+	}
 
     public boolean isProVersion() {
         return false;

@@ -28,11 +28,11 @@ public class BukkitNpcEffectThread implements Runnable {
 
     final BukkitQuestsPlugin plugin;
 
-    public BukkitNpcEffectThread(final BukkitQuestsPlugin quests) {
-        plugin = quests;
+    public BukkitNpcEffectThread(BukkitQuestsPlugin plugin) {
+        this.plugin = plugin;
     }
 
-    @Override
+	@Override
     public void run() {
         for (final Player player : plugin.getServer().getOnlinePlayers()) {
             if (plugin.getDependencies().getCitizens() != null) {
