@@ -1,6 +1,6 @@
 name: Quests
 main: me.pikamug.quests.BukkitQuestsPlugin
-version: ${project.version}-5.1.0
+version: ${project.version}
 api-version: 1.13
 description: An extensive questing system.
 website: https://github.com/Grandicek/Quests
