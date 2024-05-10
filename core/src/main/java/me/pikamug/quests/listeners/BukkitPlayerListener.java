@@ -861,16 +861,16 @@ public class BukkitPlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        if (player.hasPermission("quests.admin.update")) {
-            new BukkitUpdateChecker(plugin, 3711).getVersion(version -> {
-                if (!plugin.getDescription().getVersion().split("-")[0].equalsIgnoreCase(version)) {
-                    event.getPlayer().sendMessage(ChatColor.GRAY + "[" + ChatColor.YELLOW + "Quests" + ChatColor.GRAY
-                            + "] " + ChatColor.GREEN + BukkitLang.get(player, "updateTo").replace("<version>",
-                            version).replace("<url>", ChatColor.DARK_AQUA + "" + ChatColor.UNDERLINE
-                            + plugin.getDescription().getWebsite()));
-                }
-            });
-        }
+        //if (player.hasPermission("quests.admin.update")) {
+        //    new BukkitUpdateChecker(plugin, 3711).getVersion(version -> {
+        //        if (!plugin.getDescription().getVersion().split("-")[0].equalsIgnoreCase(version)) {
+        //            event.getPlayer().sendMessage(ChatColor.GRAY + "[" + ChatColor.YELLOW + "Quests" + ChatColor.GRAY
+        //                    + "] " + ChatColor.GREEN + BukkitLang.get(player, "updateTo").replace("<version>",
+        //                    version).replace("<url>", ChatColor.DARK_AQUA + "" + ChatColor.UNDERLINE
+        //                    + plugin.getDescription().getWebsite()));
+        //        }
+        //    });
+        //}
         if (plugin.canUseQuests(player.getUniqueId())) {
             final Quester noobCheck = new BukkitQuester(plugin, player.getUniqueId());
             if (plugin.getConfigSettings().canGenFilesOnJoin() && !noobCheck.hasData()) {
