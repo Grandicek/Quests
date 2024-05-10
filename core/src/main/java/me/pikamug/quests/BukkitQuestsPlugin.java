@@ -232,12 +232,12 @@ public class BukkitQuestsPlugin extends JavaPlugin implements Quests {
         }
 
         // 12 - Attempt to check for updates
-        new BukkitUpdateChecker(this, 3711).getVersion(version -> {
-            if (!getDescription().getVersion().split("-")[0].equalsIgnoreCase(version)) {
-                getLogger().info(ChatColor.DARK_GREEN + BukkitLang.get("updateTo").replace("<version>",
-                        version).replace("<url>", ChatColor.AQUA + getDescription().getWebsite()));
-            }
-        });
+        //new BukkitUpdateChecker(this, 3711).getVersion(version -> {
+        //    if (!getDescription().getVersion().split("-")[0].equalsIgnoreCase(version)) {
+        //        getLogger().info(ChatColor.DARK_GREEN + BukkitLang.get("updateTo").replace("<version>",
+        //                version).replace("<url>", ChatColor.AQUA + getDescription().getWebsite()));
+        //    }
+        //});
 
         // 13 - Delay loading of quests, actions and modules
         delayLoadQuestInfo();
