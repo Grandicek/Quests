@@ -166,7 +166,7 @@ public class BukkitDependencies implements Dependencies {
                             + citizens.getDescription().getVersion());
                 }
             } catch (final Exception e) {
-                plugin.getLogger().warning("Legacy version of Citizens found. Citizens in Quests not enabled.");
+                plugin.getLogger().warning("Premium version of Citizens found. Citizens in Quests not enabled.");
             }
         }
     }
