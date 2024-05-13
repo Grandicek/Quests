@@ -92,104 +92,47 @@ public class BukkitCitizensListener implements Listener {
                                 return;
                             }
                         }
-                    } else if (!hand.getType().equals(Material.AIR)) {
-                        for (final UUID uuid : currentStage.getItemDeliveryTargets()) {
-                            if (uuid.equals(clicked.getUniqueId())) {
-                                String text = "";
-                                final boolean hasMeta = hand.getItemMeta() != null;
-                                if (hasMeta) {
-                                    text += ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC
-                                            + (hand.getItemMeta().hasDisplayName() ? hand.getItemMeta().getDisplayName()
-                                            + ChatColor.GRAY + " (" : "");
-                                }
-                                text += ChatColor.AQUA + "<item>" + (hand.getDurability() != 0 ? (":" + ChatColor.BLUE
-                                        + hand.getDurability()) : "") + ChatColor.GRAY;
-                                if (hasMeta) {
-                                    text += (hand.getItemMeta().hasDisplayName() ? ")" : "");
-                                }
-                                text += " x " + ChatColor.DARK_AQUA + hand.getAmount() + ChatColor.GRAY;
-                                if (plugin.getConfigSettings().canTranslateNames() && !hasMeta
-                                        && !hand.getItemMeta().hasDisplayName()) {
-                                    plugin.getLocaleManager().sendMessage(player, BukkitLang
-                                            .get(player, "questInvalidDeliveryItem").replace("<item>", text), hand
-                                            .getType(), hand.getDurability(), null);
-                                } else {
-                                    player.sendMessage(BukkitLang.get(player, "questInvalidDeliveryItem")
-                                            .replace("<item>", text).replace("<item>", BukkitItemUtil.getName(hand)));
-                                }
-                                switch (reasonCode) {
-                                    case 1:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "one item is null"));
-                                        break;
-                                    case 0:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "ERROR"));
-                                        break;
-                                    case -1:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "name"));
-                                        break;
-                                    case -2:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "amount"));
-                                        break;
-                                    case -3:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "durability"));
-                                        break;
-                                    case -4:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "display name or lore"));
-                                        break;
-                                    case -5:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "enchantments"));
-                                        break;
-                                    case -6:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "stored enchants"));
-                                        break;
-                                    case -7:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "item flags"));
-                                        break;
-                                    case -8:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "book data"));
-                                        break;
-                                    case -9:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "potion type"));
-                                        break;
-                                    case -10:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "fish variant"));
-                                        break;
-                                    default:
-                                        player.sendMessage(ChatColor.GRAY + BukkitLang.get(player, "difference")
-                                                .replace("<data>", "unknown"));
-                                }
-                                if (hasMeta) {
-                                    if (hand.getType().equals(Material.ENCHANTED_BOOK)) {
-                                        final EnchantmentStorageMeta esMeta = (EnchantmentStorageMeta) hand.getItemMeta();
-                                        if (esMeta.hasStoredEnchants()) {
-                                            for (final Entry<Enchantment, Integer> e : esMeta.getStoredEnchants()
-                                                    .entrySet()) {
-                                                final HashMap<Enchantment, Integer> single = new HashMap<>();
-                                                single.put(e.getKey(), e.getValue());
-                                                plugin.getLocaleManager().sendMessage(player, ChatColor.GRAY + "\u2515 "
-                                                        + ChatColor.DARK_GREEN + "<enchantment> <level>\n", single);
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+                    } else {
+						for (final UUID uuid : currentStage.getItemDeliveryTargets()) {
+							if (uuid.equals(clicked.getUniqueId())) {
+								final boolean hasMeta = hand.getItemMeta() != null;
+								int index = currentStage.getItemDeliveryTargets().indexOf(uuid);
+								if (index != -1) {
+									ItemStack requiredItem = currentStage.getItemsToDeliver().get(index);
+
+									if (requiredItem != null) {
+										String requiredItemName = requiredItem.hasItemMeta() && requiredItem.getItemMeta().hasDisplayName() ?
+																  requiredItem.getItemMeta().getDisplayName() : BukkitItemUtil.getName(requiredItem);
+										int requiredAmount = requiredItem.getAmount();
+										
+										player.sendMessage(ChatColor.GOLD + "----------------");
+										player.sendMessage(ChatColor.GRAY + "Bring me " + ChatColor.GOLD + requiredAmount + "x " 
+														   + ChatColor.BLUE + requiredItemName + ChatColor.GRAY + ".");
+										player.sendMessage(ChatColor.GOLD + "----------------");
+										if (hasMeta) {
+											if (hand.getType().equals(Material.ENCHANTED_BOOK)) {
+												final EnchantmentStorageMeta esMeta = (EnchantmentStorageMeta) hand.getItemMeta();
+												if (esMeta.hasStoredEnchants()) {
+													for (final Entry<Enchantment, Integer> e : esMeta.getStoredEnchants().entrySet()) {
+														final HashMap<Enchantment, Integer> single = new HashMap<>();
+														single.put(e.getKey(), e.getValue());
+														plugin.getLocaleManager().sendMessage(player, ChatColor.GRAY + "\u2515 "
+																+ ChatColor.DARK_GREEN + "<enchantment> <level>\n", single);
+													}
+												}
+											}
+										}
+									} else {
+										plugin.getLogger().severe("error co nema nastat - QUESTS bukkitcitiyenslistener.java");
+									}
+								}
+								break;
+							}
+						}
+					}
+				}
+			}
+			
             boolean hasObjective = false;
             for (final Quest quest : quester.getCurrentQuests().keySet()) {
                 if (!quester.meetsCondition(quest, true)) {
