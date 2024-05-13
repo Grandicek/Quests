@@ -19,6 +19,7 @@ import me.pikamug.quests.player.BukkitQuester;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 
 import java.util.Collection;
 import java.util.List;
@@ -92,7 +93,7 @@ public class BukkitNpcEffectThread implements Runnable {
         if (targetUuid != null) {
             targetLocation.add(0, 2, 0);
             final BukkitQuesterPostViewEffectEvent event;
-            if (quester.canAcceptQuest(targetUuid)) {
+            if (quester.canAcceptQuest(targetUuid) && !quester.StageQuestEffectsNPC(targetUuid) && !quester.canAcceptCompletedRedoableQuest(targetUuid)) {
                 showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
                 event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getEffect(), false);
                 plugin.getServer().getPluginManager().callEvent(event);
@@ -101,8 +102,8 @@ public class BukkitNpcEffectThread implements Runnable {
                 event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getRedoEffect(), true);
                 plugin.getServer().getPluginManager().callEvent(event);
             } else if (quester.StageQuestEffectsNPC(targetUuid)) {
-		showEffect(quester.getPlayer(), targetLocation, plugin.getConfigSettings().getEffect());
-                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, plugin.getConfigSettings().getEffect(), false);
+				showEffect(quester.getPlayer(), targetLocation, "spell");
+                event = new BukkitQuesterPostViewEffectEvent(quester, targetUuid, targetLocation, "spell", false);
                 plugin.getServer().getPluginManager().callEvent(event);
 		}
         }

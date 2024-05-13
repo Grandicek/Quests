@@ -4617,6 +4617,7 @@ public class BukkitQuester implements Quester {
         return false;
     }
 
+	//dodelame stage effekty + delivery
     public boolean StageQuestEffectsNPC(final UUID npc) {
         for (final Quest q : plugin.getLoadedQuests()) {
             if (!getCompletedQuests().contains(q)) {
