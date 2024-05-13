@@ -4621,9 +4621,14 @@ public class BukkitQuester implements Quester {
         for (final Quest q : plugin.getLoadedQuests()) {
             if (!getCompletedQuests().contains(q)) {
                 Stage currentStage = getCurrentStage(q);
-                if (currentStage != null && getCurrentStage(q).getNpcsToInteract().contains(npc)) {
-                        return true;
-                }
+				if (currentStage != null) {
+					if (getCurrentStage(q).getNpcsToInteract().contains(npc)) {
+						return true; // talk to npc
+					}
+					if (currentStage.getItemDeliveryTargets() != null && currentStage.getItemDeliveryTargets().contains(npc)) {
+						return true; // deliver items to npc
+					}
+				}            
             }
         }
         return false;
