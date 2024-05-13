@@ -102,14 +102,11 @@ public class BukkitCitizensListener implements Listener {
 									ItemStack requiredItem = currentStage.getItemsToDeliver().get(index);
 
 									if (requiredItem != null) {
-										String requiredItemName = requiredItem.hasItemMeta() && requiredItem.getItemMeta().hasDisplayName() ?
-																  requiredItem.getItemMeta().getDisplayName() : BukkitItemUtil.getName(requiredItem);
+										String requiredItemName = requiredItem.hasItemMeta() && requiredItem.getItemMeta().hasDisplayName() ? requiredItem.getItemMeta().getDisplayName() : BukkitItemUtil.getName(requiredItem);
 										int requiredAmount = requiredItem.getAmount();
-										
-										player.sendMessage(ChatColor.GOLD + "--------------------");
-										player.sendMessage(ChatColor.GRAY + "Bring me " + ChatColor.GOLD + requiredAmount + "x " 
-														   + ChatColor.BLUE + requiredItemName + ChatColor.GRAY + ".");
-										player.sendMessage(ChatColor.GOLD + "--------------------");
+										player.sendMessage(ChatColor.RED + "----------------------------");
+										player.sendMessage(ChatColor.GOLD + "[Quest]: Give me: " + ChatColor.GOLD + requiredAmount + "x " + ChatColor.BLUE + requiredItemName);
+										player.sendMessage(ChatColor.RED + "----------------------------");
 										if (hasMeta) {
 											if (hand.getType().equals(Material.ENCHANTED_BOOK)) {
 												final EnchantmentStorageMeta esMeta = (EnchantmentStorageMeta) hand.getItemMeta();
@@ -209,9 +206,9 @@ public class BukkitCitizensListener implements Listener {
                     c.begin();
                 }
             } else {
-                player.sendMessage(ChatColor.YELLOW + "----------------------------");
-                player.sendMessage(ChatColor.YELLOW + "I don't have new quests for you");
-                player.sendMessage(ChatColor.YELLOW + "----------------------------");
+                player.sendMessage(ChatColor.RED + "----------------------------");
+                player.sendMessage(ChatColor.GOLD + "I don't have new quests for you");
+                player.sendMessage(ChatColor.RED + "----------------------------");
             }
         }
     }
