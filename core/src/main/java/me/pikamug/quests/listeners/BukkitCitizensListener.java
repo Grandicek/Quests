@@ -79,6 +79,7 @@ public class BukkitCitizensListener implements Listener {
                     for (final ItemStack is : currentStage.getItemsToDeliver()) {
                         currentIndex++;
                         reasonCode = BukkitItemUtil.compareItems(is, hand, true);
+                        
                         if (reasonCode == 0) {
                             matches.add(currentIndex);
                         }
@@ -105,10 +106,10 @@ public class BukkitCitizensListener implements Listener {
 																  requiredItem.getItemMeta().getDisplayName() : BukkitItemUtil.getName(requiredItem);
 										int requiredAmount = requiredItem.getAmount();
 										
-										player.sendMessage(ChatColor.GOLD + "----------------");
+										player.sendMessage(ChatColor.GOLD + "--------------------");
 										player.sendMessage(ChatColor.GRAY + "Bring me " + ChatColor.GOLD + requiredAmount + "x " 
 														   + ChatColor.BLUE + requiredItemName + ChatColor.GRAY + ".");
-										player.sendMessage(ChatColor.GOLD + "----------------");
+										player.sendMessage(ChatColor.GOLD + "--------------------");
 										if (hasMeta) {
 											if (hand.getType().equals(Material.ENCHANTED_BOOK)) {
 												final EnchantmentStorageMeta esMeta = (EnchantmentStorageMeta) hand.getItemMeta();
@@ -208,7 +209,9 @@ public class BukkitCitizensListener implements Listener {
                     c.begin();
                 }
             } else {
-                BukkitLang.send(player, ChatColor.YELLOW + BukkitLang.get(player, "noMoreQuest"));
+                player.sendMessage(ChatColor.YELLOW + "----------------------------");
+                player.sendMessage(ChatColor.YELLOW + "I don't have new quests for you");
+                player.sendMessage(ChatColor.YELLOW + "----------------------------");
             }
         }
     }
